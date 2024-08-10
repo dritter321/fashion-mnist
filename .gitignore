@@ -4,3 +4,4 @@
 # local training outputs
 /training/data
 /training/lightning_logs
+/local-test/data

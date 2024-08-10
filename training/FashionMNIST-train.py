@@ -5,6 +5,8 @@ import pytorch_lightning as pl
 from pytorch_lightning import Trainer
 from pytorch_lightning.callbacks import EarlyStopping
 import time
+import os
+import datetime
 
 start = time.time()
 
@@ -70,6 +72,14 @@ trainer = Trainer(max_epochs=100, accelerator="auto", callbacks=[early_stop_call
 
 trainer.fit(model, train_loader, test_loader)
 trainer.test(model, dataloaders=test_loader)
+
+timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+model_directory = "../model"
+os.makedirs(model_directory, exist_ok=True)
+model_filename = f"lit_fashion_mnist_model_{timestamp}.pth"
+full_path = os.path.join(model_directory, model_filename)
+torch.save(model.state_dict(), full_path)
+print("Model saved successfully.")
 
 
 end = time.time()
