@@ -8,3 +8,7 @@ This repository demonstrates the ML workflow and deployment of an Fashion MNIST 
   (GHA is preferred over Airflow for the orchestration because of the model's lightweight requirements)
 
 The model training uses CrossEntropyLoss as a loss function, Adam (Adaptive Moment Estimation) as an optimiser, and Early stop to avoid overfitting the model.
+
+LOCAL TEST
+* execute the training script (train-torchlit-mlflow-faMNIST.py) in the training directory
+* run inference.py under local-test for using the latest model artifact for infering output with a random input

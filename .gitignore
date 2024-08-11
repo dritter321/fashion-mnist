@@ -1,7 +1,9 @@
 # IDE file
 .idea
+utils/__pycache__/
 
-# local training outputs
+# local training data
 /training/data
-/training/lightning_logs
+
+# local test outputs
 /local-test/data

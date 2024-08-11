@@ -4,6 +4,9 @@ from torchvision import datasets
 from torch.utils.data import DataLoader
 import pytorch_lightning as pl
 import matplotlib.pyplot as plt
+import pandas as pd
+
+## Inference of random input on latest model
 
 class LitFashionMNIST(pl.LightningModule):
     def __init__(self):
@@ -19,7 +22,14 @@ class LitFashionMNIST(pl.LightningModule):
         return self.fc3(x)
 
 model = LitFashionMNIST()
-model.load_state_dict(torch.load("../model/lit_fashion_mnist_model_2024-08-10_17-20-36.pth"))
+
+df = pd.read_csv('../training/mlruns/run_logs.csv')
+df['timestamp'] = pd.to_datetime(df['timestamp'])
+latest_row = df.loc[df['timestamp'].idxmax()]
+experiment_id = latest_row['experiment_id']
+run_id = latest_row['run_id']
+
+model.load_state_dict(torch.load(f"../training/mlruns/{experiment_id}/{run_id}/model_artifact/model.pth"))
 model.eval()
 test_dataset = datasets.FashionMNIST(root='./data',
                                      train=False,

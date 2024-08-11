@@ -1,0 +1,6 @@
+artifact_location: file:///Users/Daniel_Ritter/Projects/conti-mle/training/mlruns/824313281332539466
+creation_time: 1723375402272
+experiment_id: '824313281332539466'
+last_update_time: 1723375402272
+lifecycle_stage: active
+name: fashion_mnist_experiment

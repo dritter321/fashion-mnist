@@ -1,0 +1,2 @@
+timestamp,experiment_name,experiment_id,run_id,execution_time,model_path
+2024-08-11 13:26:43,fashion_mnist_experiment,824313281332539466,b75957ad14e9450682318469c57fa424,201.5578637123108,mlruns/824313281332539466/b75957ad14e9450682318469c57fa424/model_artifact/model.pth

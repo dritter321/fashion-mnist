@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/Daniel_Ritter/Projects/conti-mle/training/mlruns/0/85d23ca555bc4c538de6e1561255eae1/artifacts
+end_time: 1723375603799
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 85d23ca555bc4c538de6e1561255eae1
+run_name: gaudy-pig-816
+run_uuid: 85d23ca555bc4c538de6e1561255eae1
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1723375402644
+status: 3
+tags: []
+user_id: Daniel_Ritter
