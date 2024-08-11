@@ -3,6 +3,11 @@ name: Publish Docker image
 on:
   workflow_dispatch:
     inputs:
+      version:
+        required: true
+        type: string
+        description: Version of the Docker image
+        default: 0.0.1
       experiment_id:
         required: true
         type: string
@@ -36,7 +41,7 @@ jobs:
         context: .
         file: ./Dockerfile
         push: true
-        tags: ${{ secrets.DOCKER_USERNAME }}/your-image-name:latest
+        tags: ${{ secrets.DOCKER_USERNAME }}/fashion-mnist-flask-ap:latest
         build-args: |
           EXPERIMENT_ID=${{ github.event.inputs.experiment_id }}
           RUN_ID=${{ github.event.inputs.run_id }}
