@@ -23,3 +23,4 @@ LOCAL TEST
 - e.g. docker build --build-arg EXPERIMENT_ID=737694674622074143 --build-arg RUN_ID=c09a656b6f624a72b6897ad6dcb7c122 -t my-flask-app . 
 - docker run -p 5000:5000 -d my-flask-app
 - you can also run docker_test_request.py in local-test directory
+- similarly, you can run the same curl command to infer result

@@ -1,0 +1,45 @@
+name: Publish Docker image
+
+on:
+  workflow_dispatch:
+    inputs:
+      experiment_id:
+        required: true
+        type: string
+        description: MLFlow experiment_id of the model
+        default: 737694674622074143
+      run_id:
+        required: true
+        type: string
+        description: MLFlow run_id of the model
+        default: c09a656b6f624a72b6897ad6dcb7c122
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v2
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+
+    - name: Login to Docker Hub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Build and push
+      uses: docker/build-push-action@v2
+      with:
+        context: .
+        file: ./Dockerfile
+        push: true
+        tags: ${{ secrets.DOCKER_USERNAME }}/your-image-name:latest
+        build-args: |
+          EXPERIMENT_ID=${{ github.event.inputs.experiment_id }}
+          RUN_ID=${{ github.event.inputs.run_id }}
+
+    - name: Logout from Docker Hub
+      run: docker logout
