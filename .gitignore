@@ -1,7 +1,7 @@
 # local files
 .idea
 utils/__pycache__/
-training/__pycache__/
+training/__pycache__
 
 # local training data
 /training/data

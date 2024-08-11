@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/Daniel_Ritter/Projects/conti-mle/training/mlruns/0/b6e838065c1c492da4817f5d1fb8427c/artifacts
+end_time: 1723388441088
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: b6e838065c1c492da4817f5d1fb8427c
+run_name: intelligent-grub-357
+run_uuid: b6e838065c1c492da4817f5d1fb8427c
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1723388301395
+status: 3
+tags: []
+user_id: Daniel_Ritter

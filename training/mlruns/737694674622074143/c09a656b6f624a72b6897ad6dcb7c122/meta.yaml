@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/Daniel_Ritter/Projects/conti-mle/training/mlruns/737694674622074143/c09a656b6f624a72b6897ad6dcb7c122/artifacts
+end_time: 1723388441053
+entry_point_name: ''
+experiment_id: '737694674622074143'
+lifecycle_stage: active
+run_id: c09a656b6f624a72b6897ad6dcb7c122
+run_name: chill-foal-292
+run_uuid: c09a656b6f624a72b6897ad6dcb7c122
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1723388301380
+status: 3
+tags: []
+user_id: Daniel_Ritter

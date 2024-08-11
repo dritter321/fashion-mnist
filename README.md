@@ -14,4 +14,10 @@ LOCAL TEST
 * run inference.py under local-test for using the latest model artifact for infering output with a random input
 * for local inference, you can also run server.py and send curl request to the Flask endpoint such as
 * for having an input image you can run collect_mnist_image.py or just use sample_fashion_mnist.png
-curl -X POST -F "file=@/Users/{your_name}/Projects/conti-mle/local-test/sample_fashion_mnist.png" http://localhost:5000/infer
+* please also set the local_run variable to True
+- curl -X POST -F "file=@/Users/{your_name}/Projects/conti-mle/local-test/sample_fashion_mnist.png" http://localhost:5000/infer
+
+* To test the Docker image locally, build and run the docker image:
+- docker build --build-arg EXPERIMENT_ID=your_experiment_id --build-arg RUN_ID=your_run_id -t my-flask-app .
+- e.g. docker build --build-arg EXPERIMENT_ID=824313281332539466 --build-arg RUN_ID=b75957ad14e9450682318469c57fa424 -t my-flask-app . 
+- docker run -p 5000:5000 -d my-flask-app

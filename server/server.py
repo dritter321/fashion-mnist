@@ -1,25 +1,32 @@
 from flask import Flask, request, jsonify
-import torch
 from torchvision import transforms
 from PIL import Image
-import io
 import pandas as pd
+import torch
 import sys
 import os
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from training.model import LitFashionMNIST
-
+import io
 
 app = Flask(__name__)
 
-df = pd.read_csv('../training/mlruns/run_logs.csv')
-df['timestamp'] = pd.to_datetime(df['timestamp'])
-latest_row = df.loc[df['timestamp'].idxmax()]
-experiment_id = latest_row['experiment_id']
-run_id = latest_row['run_id']
+local_run = False
 
-model = LitFashionMNIST()
-model.load_state_dict(torch.load(f"../training/mlruns/{experiment_id}/{run_id}/model_artifact/model.pth"))
+if local_run == True:
+    sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+    from training.model import LitFashionMNIST
+    df = pd.read_csv('../training/mlruns/run_logs.csv')
+    df['timestamp'] = pd.to_datetime(df['timestamp'])
+    latest_row = df.loc[df['timestamp'].idxmax()]
+    experiment_id = latest_row['experiment_id']
+    run_id = latest_row['run_id']
+    model = LitFashionMNIST()
+    model.load_state_dict(torch.load(f"../training/mlruns/{experiment_id}/{run_id}/model_artifact/model.pth"))
+else:
+    sys.path.append('.')
+    from training.model import LitFashionMNIST
+    model = LitFashionMNIST()
+    model.load_state_dict(torch.load("/usr/src/app/model.pth"))
+
 model.eval()
 
 # Define a transform to normalize the data

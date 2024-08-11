@@ -68,6 +68,8 @@ with mlflow.start_run() as run:
     model_dir = Path(run_dir + "model_artifact")
     model_dir.mkdir(parents=True, exist_ok=True)
     model_path = model_dir / "model.pth"
+    print(model_path)
+    print(model.state_dict())
     torch.save(model.state_dict(), model_path)
 
     log_run_details_to_file(experiment_name, experiment_id, run_id, time.time() - start, model_path)
