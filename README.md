@@ -12,3 +12,6 @@ The model training uses CrossEntropyLoss as a loss function, Adam (Adaptive Mome
 LOCAL TEST
 * execute the training script (train-torchlit-mlflow-faMNIST.py) in the training directory
 * run inference.py under local-test for using the latest model artifact for infering output with a random input
+* for local inference, you can also run server.py and send curl request to the Flask endpoint such as
+* for having an input image you can run collect_mnist_image.py or just use sample_fashion_mnist.png
+curl -X POST -F "file=@/Users/{your_name}/Projects/conti-mle/local-test/sample_fashion_mnist.png" http://localhost:5000/infer

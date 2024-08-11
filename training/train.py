@@ -1,17 +1,15 @@
 import torch
 from torch.utils.data import DataLoader
 from torchvision import datasets, transforms
-import pytorch_lightning as pl
 from pytorch_lightning import Trainer
 from pytorch_lightning.callbacks import EarlyStopping
 from pytorch_lightning.loggers import MLFlowLogger
 from pytorch_lightning.callbacks import ModelCheckpoint
-import mlflow
+from model import LitFashionMNIST
 import mlflow.pytorch
 import time
 import os
 from pathlib import Path
-import datetime
 import sys
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from utils.logger import log_run_details_to_file
@@ -26,46 +24,6 @@ test_dataset = datasets.FashionMNIST(root='./data', train=False, download=True, 
 
 train_loader = DataLoader(train_dataset, batch_size=64, shuffle=True)
 test_loader = DataLoader(test_dataset, batch_size=64)
-
-### Defining training
-class LitFashionMNIST(pl.LightningModule):
-    def __init__(self):
-        super().__init__()
-        self.save_hyperparameters()
-        self.fc1 = torch.nn.Linear(28 * 28, 128)
-        self.fc2 = torch.nn.Linear(128, 64)
-        self.fc3 = torch.nn.Linear(64, 10)
-
-    def forward(self, x):
-        x = x.view(x.size(0), -1)
-        x = torch.relu(self.fc1(x))
-        x = torch.relu(self.fc2(x))
-        x = self.fc3(x)
-        return x
-
-    def training_step(self, batch, batch_idx):
-        x, y = batch
-        y_hat = self(x)
-        loss = torch.nn.CrossEntropyLoss()(y_hat, y)
-        self.log('train_loss', loss)
-        return loss
-
-    def validation_step(self, batch, batch_idx):
-        x, y = batch
-        y_hat = self(x)
-        loss = torch.nn.CrossEntropyLoss()(y_hat, y)
-        self.log('val_loss', loss)
-        return loss
-
-    def test_step(self, batch, batch_idx):
-        x, y = batch
-        y_hat = self(x)
-        loss = torch.nn.CrossEntropyLoss()(y_hat, y)
-        self.log('test_loss', loss, on_step=False, on_epoch=True, prog_bar=True, logger=True)
-        return loss
-
-    def configure_optimizers(self):
-        return torch.optim.Adam(self.parameters(), lr=0.001)
 
 ### Setting up logging
 start = time.time()
