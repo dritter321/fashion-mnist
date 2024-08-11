@@ -1,9 +1,10 @@
 # conti-mle
 Homework for Senior Machine Learning Engineer - DevOps focus
 
-This repository demonstrates the ML workflow and deployment of an Fashion MNIST image recognition model and service.
+This repository demonstrates the ML workflow and deployment of a Fashion MNIST image recognition model and service.
+This is the recommended and chosen dataset as image processing is a relevant domain for the current position.
 
-* The model is trained with PyTorch Lightning and Torchvision libraries.
+* The model is trained with PyTorch, PyTorch Lightning, and Torchvision libraries.
 * The workflow is orchestrated with GitHub Actions.
   (GHA is preferred over Airflow for the orchestration because of the model's lightweight requirements)
 
@@ -19,5 +20,6 @@ LOCAL TEST
 
 * To test the Docker image locally, build and run the docker image:
 - docker build --build-arg EXPERIMENT_ID=your_experiment_id --build-arg RUN_ID=your_run_id -t my-flask-app .
-- e.g. docker build --build-arg EXPERIMENT_ID=824313281332539466 --build-arg RUN_ID=b75957ad14e9450682318469c57fa424 -t my-flask-app . 
+- e.g. docker build --build-arg EXPERIMENT_ID=737694674622074143 --build-arg RUN_ID=c09a656b6f624a72b6897ad6dcb7c122 -t my-flask-app . 
 - docker run -p 5000:5000 -d my-flask-app
+- you can also run docker_test_request.py in local-test directory
