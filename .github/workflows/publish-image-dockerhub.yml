@@ -41,7 +41,7 @@ jobs:
         context: .
         file: ./Dockerfile
         push: true
-        tags: ${{ secrets.DOCKER_USERNAME }}/fashion-mnist-flask-ap:latest
+        tags: ${{ secrets.DOCKER_USERNAME }}/fashion-mnist-flask-app:latest
         build-args: |
           EXPERIMENT_ID=${{ github.event.inputs.experiment_id }}
           RUN_ID=${{ github.event.inputs.run_id }}
