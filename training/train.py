@@ -1,12 +1,11 @@
 import torch
-from torch.utils.data import DataLoader
-from torchvision import datasets, transforms
+from torch.utils.data import DataLoader, TensorDataset
 from pytorch_lightning import Trainer
 from pytorch_lightning.callbacks import EarlyStopping
 from pytorch_lightning.loggers import MLFlowLogger
 from pytorch_lightning.callbacks import ModelCheckpoint
 from model import LitFashionMNIST
-import mlflow.pytorch
+import mlflow
 import time
 import os
 from pathlib import Path
@@ -16,12 +15,23 @@ from utils.logger import log_run_details_to_file
 
 experiment_name = "fashion_mnist_experiment"
 
-### Loading data
-transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.5,), (0.5,))])
+# Load the preprocessed data and labels
+train_data, train_labels = torch.load('../data/train_preprocessed.pt')
+test_data, test_labels = torch.load('../data/test_preprocessed.pt')
 
-train_dataset = datasets.FashionMNIST(root='./data', train=True, download=True, transform=transform)
-test_dataset = datasets.FashionMNIST(root='./data', train=False, download=True, transform=transform)
+# Convert train_data and test_data from list of tensors to a single 3D Tensor
+train_data = torch.stack(train_data)
+test_data = torch.stack(test_data)
 
+# Convert labels to tensors (if not already tensors)
+train_labels = torch.tensor(train_labels)
+test_labels = torch.tensor(test_labels)
+
+# Create TensorDataset
+train_dataset = TensorDataset(train_data, train_labels)
+test_dataset = TensorDataset(test_data, test_labels)
+
+# Create DataLoader
 train_loader = DataLoader(train_dataset, batch_size=64, shuffle=True)
 test_loader = DataLoader(test_dataset, batch_size=64)
 
@@ -31,8 +41,8 @@ mlflow_logger = MLFlowLogger(
     experiment_name=experiment_name,
     tracking_uri=mlflow.get_tracking_uri()
 )
-experiment_id = mlflow_logger.experiment_id
 run_id = mlflow_logger.run_id
+experiment_id = mlflow_logger.experiment_id
 run_dir = f"./mlruns/{experiment_id}/{run_id}/"
 
 

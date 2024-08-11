@@ -5,6 +5,7 @@ training/__pycache__
 
 # local training data
 /training/data
+/data
 
 # local test outputs
 /local-test/data

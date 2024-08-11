@@ -14,6 +14,7 @@ The model training uses CrossEntropyLoss as a loss function, Adam (Adaptive Mome
 
 ## Local Testing
 
+* before running the training script, execute `/preprocessing/preprocessing.py` to make the data available
 * execute the training script `/training/train-torchlit-mlflow-faMNIST.py` in the training directory
 * run `/local-test/inference.py`for using the latest model artifact for infering output with a random input
 * for local inference, you can also run `/server/server.py` and send curl request to the Flask endpoint such as
