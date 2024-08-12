@@ -9,3 +9,6 @@ training/__pycache__
 
 # local test outputs
 /local-test/data
+
+# Evaluation temp
+/evaluation/lightning_logs/

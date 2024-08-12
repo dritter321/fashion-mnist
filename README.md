@@ -41,3 +41,38 @@ docker run -p 5000:5000 -d my-flask-app
 ```
 docker pull dritter3/fashion-mnist-flask-app:latest
 ```  
+* Some unit testing is added to GHA, as well.
+
+## Theoretical Questions
+
+### Testing
+
+* Unit testing is included in GHA, utility functions can be unit tested and included before any builds.
+* Functional tests can be also included.
+* Data Loading and its performance needs to be measured and optimized further.
+* Pipeline needs to be tested for its effectiveness and usability
+* in `local-test`, inferental script and request script is provided to test functionality during development
+* As much test should be included in automatic GHA for functional or code quality checks.
+
+### Optimization, Bottlenecks, First Steps
+
+* Data Loading and preprocessing requires optimal batch size. Experimenting is needed. For this local testing, it wasn't necessary here but parallel loading of DataLoader with appropriate number of num_workers needs to be found.
+* For model training, using Early Stop, and storing Model Checkpoints might be unnecessary, and might require too much unncessary processing.
+* Using mixed precision is only beneficial if it's appropriately chosen for hardware.
+* Setting up monitoring tools, might help further optimization.
+* In case of larger jobs, finding an optimal amount of logging might be necessary, too.
+* Maintaining and testing up-to-date libraries
+
+### multi-GPU considerations
+
+* Parallelization techniques need to be considered for performance.
+* PyTorch Training configuration can be optimized for multi-GPU processing ('gpu', 'ddp').
+* Model can be parallelized, either in multi-GPU setup.
+* Data parallelism is preferred of Model parallelism in case of limited resources.
+- easier setup, scalability, better separation of processing
+
+### Elective Tasks
+
+* PyTorch Lightning implemented
+* MLFlow is used as a tracking tool
+* Two GHA workflows are included

@@ -68,7 +68,8 @@ with mlflow.start_run() as run:
         max_epochs=10,
         accelerator="auto",
         callbacks=[early_stop_callback, checkpoint_callback],
-        logger=mlflow_logger
+        logger=mlflow_logger,
+        precision=16,  # Set to 16, Lit handles mixed precision internally
     )
 
     trainer.fit(model, train_loader, test_loader)
