@@ -1,0 +1,51 @@
+data:
+  raw_data_path: '../data'
+  preprocessed_data_path: '../data'
+  train_data_file: 'train_preprocessed.pt'
+  test_data_file: 'test_preprocessed.pt'
+
+preprocessing:
+  image_size: 28
+  flip_probability: 0.5
+  normalization_params:
+    mean: [0.5]
+    std: [0.5]
+
+model:
+  input_size: 784  # 28*28
+  first_layer_output: 128
+  second_layer_output: 64
+  output_classes: 10
+  learning_rate: 0.001
+
+training:
+  batch_size: 64
+  max_epochs: 10
+  shuffle_data: true
+  accelerator: 'auto'
+  precision: 16
+  early_stopping:
+    monitor: 'val_loss'
+    min_delta: 0.00
+    patience: 3
+    verbose: true
+    mode: 'min'
+  checkpoint:
+    save_top_k: -1  # Save all models
+    verbose: true
+    monitor: 'val_loss'
+    mode: 'min'
+
+logging:
+  experiment_name: 'fashion_mnist_experiment'
+  model_checkpoint_dir: 'model_checkpoints'
+  run_logs_dir: 'mlruns'
+
+evaluation:
+  batch_size: 64
+  results_file: './eval_results.csv'
+
+metrics:
+  num_classes: 10
+  average: 'macro'
+  task: 'multiclass'

@@ -1,17 +1,28 @@
+import yaml
 from torchvision import datasets, transforms
 import torch
 
-# Define transformations
+# Load configuration
+with open('../config.yaml', 'r') as file:
+    config = yaml.safe_load(file)
+
+data_config = config['data']
+preprocessing_config = config['preprocessing']
+
+# Define transformations using values from the config file
 transform = transforms.Compose([
-    transforms.Resize((28, 28)),  # Resize images to 28x28
-    transforms.RandomHorizontalFlip(),  # Optionally flip the images horizontally
-    transforms.ToTensor(),  # Convert images to tensor format
-    transforms.Normalize((0.5,), (0.5,))  # Normalize the tensor values
+    transforms.Resize((preprocessing_config['image_size'], preprocessing_config['image_size'])),
+    transforms.RandomHorizontalFlip(p=preprocessing_config['flip_probability']),
+    transforms.ToTensor(),
+    transforms.Normalize(
+        preprocessing_config['normalization_params']['mean'],
+        preprocessing_config['normalization_params']['std']
+    )
 ])
 
-# Load the raw datasets
-train_raw = datasets.FashionMNIST(root='../data', train=True, download=True)
-test_raw = datasets.FashionMNIST(root='../data', train=False, download=True)
+# Load the raw datasets using the config paths
+train_raw = datasets.FashionMNIST(root=data_config['raw_data_path'], train=True, download=True)
+test_raw = datasets.FashionMNIST(root=data_config['raw_data_path'], train=False, download=True)
 
 # Apply transformations and collect labels
 train_transformed = []
@@ -28,6 +39,6 @@ for img, label in test_raw:
     test_transformed.append(transform(img))
     test_labels.append(label)
 
-# Save the preprocessed tensors and labels to disk
-torch.save((train_transformed, train_labels), '../data/train_preprocessed.pt')
-torch.save((test_transformed, test_labels), '../data/test_preprocessed.pt')
+# Save the preprocessed tensors and labels to disk using config paths
+torch.save((train_transformed, train_labels), f"{data_config['preprocessed_data_path']}/{data_config['train_data_file']}")
+torch.save((test_transformed, test_labels), f"{data_config['preprocessed_data_path']}/{data_config['test_data_file']}")

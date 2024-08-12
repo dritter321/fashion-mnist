@@ -12,3 +12,6 @@ training/__pycache__
 
 # Evaluation temp
 /evaluation/lightning_logs/
+
+# run.sh dependencies
+/venv/

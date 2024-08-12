@@ -1,14 +1,21 @@
 import pytorch_lightning as pl
 import torch
+import yaml
+
+# Load configuration
+with open('../config.yaml', 'r') as file:
+    config = yaml.safe_load(file)
+
+model_config = config['model']
 
 ### Defining training
 class LitFashionMNIST(pl.LightningModule):
     def __init__(self):
         super().__init__()
         self.save_hyperparameters()
-        self.fc1 = torch.nn.Linear(28 * 28, 128)
-        self.fc2 = torch.nn.Linear(128, 64)
-        self.fc3 = torch.nn.Linear(64, 10)
+        self.fc1 = torch.nn.Linear(model_config['input_size'], model_config['first_layer_output'])
+        self.fc2 = torch.nn.Linear(model_config['first_layer_output'], model_config['second_layer_output'])
+        self.fc3 = torch.nn.Linear(model_config['second_layer_output'], model_config['output_classes'])
 
     def forward(self, x):
         x = x.view(x.size(0), -1)
@@ -39,4 +46,4 @@ class LitFashionMNIST(pl.LightningModule):
         return loss
 
     def configure_optimizers(self):
-        return torch.optim.Adam(self.parameters(), lr=0.001)
+        return torch.optim.Adam(self.parameters(), lr=model_config['learning_rate'])

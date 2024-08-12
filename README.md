@@ -76,3 +76,42 @@ docker pull dritter3/fashion-mnist-flask-app:latest
 * PyTorch Lightning implemented
 * MLFlow is used as a tracking tool
 * Two GHA workflows are included
+
+
+### Orchestration
+
+* FOR NOW, the Orchestration only happens with the `./run.sh` file
+* The Airflow DAG only has been start to be developed
+
+* Seting up Airflow
+* Navigate to the project directory on CLI
+```
+python3 -m venv my_airflow_env 
+source my_airflow_env/bin/activate
+pip install apache-airflow
+brew install postgresql
+airflow db init
+```
+* Create an admin user
+```
+airflow users create \
+    --username admin \
+    --firstname Daniel \
+    --lastname Ritter \
+    --role Admin \
+    --email dritter@mail.com
+```
+* Start service:
+```
+airflow webserver --port 8080
+```
+* Go to `http://localhost:8080/`
+* Execute the DAG defined in `/airflow/dags`
+
+
+### Tech Debts
+
+* The Airflow DAG hasn't been tested, and the steps are not containerized to make productionalizable
+* Model evaluation hasn't been thoroughly done, it would preferrable to visualize various charts in notebooks
+* A lot of methods should be separately declared and tested
+* Hyper parameter optimization was not yet in focus
