@@ -1,6 +1,3 @@
-# conti-mle
-Homework for Senior Machine Learning Engineer - DevOps focus
-
 ## Description
 
 This repository demonstrates the ML workflow and deployment of a Fashion MNIST image recognition model and service.
